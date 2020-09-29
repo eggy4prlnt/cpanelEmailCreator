@@ -3,10 +3,12 @@
 require 'src/email.php';
 
 $mail = new cpanelEmailCreator();
-$mail->url = 'https://telury.dev:2083';
-$mail->username = 'teluryd1';
-$mail->password = '09april2004#';
+$mail->url = 'CPANEL_URL';
+$mail->username = 'CPANEL_USERNAME';
+$mail->password = 'CPANEL_PASSWORD';
 
 $login = json_decode($mail->loginCpanel());
 
-echo $mail->createEmail($login->cpanelUser, 'telury.dev', 'admin', '09april2004#', 1024);
+$quota = 1024; // mb
+
+echo $mail->createEmail($login->cpanelUser, 'DOMAIN', 'USERNAME', 'PASSWORD', $quota);
