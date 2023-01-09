@@ -10,24 +10,28 @@ To create an email using your own domain.
 require 'src/email.php';
 
 $mail = new cpanelEmailCreator();
-$mail->url = 'CPANEL_URL';
-$mail->username = 'CPANEL_USERNAME';
-$mail->password = 'CPANEL_PASSWORD';
+$mail->url = 'https://site.com:2083';
+$mail->username = 'user';
+$mail->password = 'pass';
+$quota = 1024; // mb
 
 $login = json_decode($mail->loginCpanel());
 
-$quota = 1024; // mb
+try {
+    echo $mail->createEmail($login->cpanelUser, 'site.com', 'eggy', 'password123', $quota);
+} catch (\Throwable $th) {
+    //throw $th;
+}
 
-echo $mail->createEmail($login->cpanelUser, 'DOMAIN', 'USERNAME', 'PASSWORD', $quota);
 ```
 ### Response
 #### Success
 ```json
-{"warnings":null,"status":1,"messages":[""],"data":"username+domain","errors":null,"metadata":{}}
+{"status":1,"messages":"Account successfully created"}
 ```
 #### Failed
 ```json
-{"warnings":null,"status":0,"messages":null,"errors":[""],"data":null,"metadata":{}}
+{"status":0,"messages":"errors"}
 ```
 
 ## Contributing
