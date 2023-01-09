@@ -3,12 +3,15 @@
 require 'src/email.php';
 
 $mail = new cpanelEmailCreator();
-$mail->url = 'CPANEL_URL';
-$mail->username = 'CPANEL_USERNAME';
-$mail->password = 'CPANEL_PASSWORD';
+$mail->url = 'https://site.com:2083';
+$mail->username = 'user';
+$mail->password = 'pass';
+$quota = 1024; // mb
 
 $login = json_decode($mail->loginCpanel());
 
-$quota = 1024; // mb
-
-echo $mail->createEmail($login->cpanelUser, 'DOMAIN', 'USERNAME', 'PASSWORD', $quota);
+try {
+    echo $mail->createEmail($login->cpanelUser, 'site.com', 'eggy', 'password123', $quota);
+} catch (\Throwable $th) {
+    //throw $th;
+}
